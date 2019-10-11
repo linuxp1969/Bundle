@@ -13,6 +13,7 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView tvNumero;
     private int i;
+    private int variabileferlocca;
     private Bundle bundle;
 
     @Override
