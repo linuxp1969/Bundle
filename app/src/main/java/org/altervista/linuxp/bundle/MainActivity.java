@@ -3,6 +3,7 @@ package org.altervista.linuxp.bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -12,14 +13,25 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView tvNumero;
     private int i;
+    private Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tvNumero = findViewById(R.id.tvNumero);
-        i=0;
+        if (savedInstanceState == null){
+            i=0;
+        }else {
+            i=savedInstanceState.getInt("Key");
+        }
         new Thread(new run()).start();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("Key",i);
     }
 
     public class run implements Runnable {
@@ -39,9 +51,9 @@ public class MainActivity extends AppCompatActivity {
                         tvNumero.setText(String.valueOf(i));
                     }
                 });
-
             }
         }
     }
+
 }
 
